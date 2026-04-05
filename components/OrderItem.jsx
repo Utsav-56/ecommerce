@@ -55,12 +55,13 @@ const OrderItem = ({ order }) => {
 
                 <td className="text-left space-y-2 text-sm max-md:hidden">
                     <div
-                        className={`flex items-center justify-center gap-1 rounded-full p-1 ${order.status === 'confirmed'
-                            ? 'text-yellow-500 bg-yellow-100'
-                            : order.status === 'delivered'
-                                ? 'text-green-500 bg-green-100'
-                                : 'text-slate-500 bg-slate-100'
-                            }`}
+                        className={`flex items-center justify-center gap-1 rounded-full p-1 text-xs font-semibold px-2 py-0.5 border ${
+                            order.status === 'DELIVERED'
+                                ? 'text-emerald-700 bg-emerald-50 border-emerald-250'
+                                : order.status === 'ORDER_PLACED'
+                                    ? 'text-amber-700 bg-amber-50 border-amber-250'
+                                    : 'text-indigo-700 bg-indigo-50 border-indigo-250'
+                        }`}
                     >
                         <DotIcon size={10} className="scale-250" />
                         {order.status.split('_').join(' ').toLowerCase()}
@@ -70,12 +71,18 @@ const OrderItem = ({ order }) => {
             {/* Mobile */}
             <tr className="md:hidden">
                 <td colSpan={5}>
-                    <p>{order.address.name}, {order.address.street}</p>
-                    <p>{order.address.city}, {order.address.state}, {order.address.zip}, {order.address.country}</p>
-                    <p>{order.address.phone}</p>
+                    <p className="font-semibold text-slate-800">{order.address.name}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{order.address.street}, {order.address.city}, {order.address.state} - {order.address.zip}</p>
+                    <p className="text-xs text-slate-455">{order.address.phone}</p>
                     <br />
                     <div className="flex items-center">
-                        <span className='text-center mx-auto px-6 py-1.5 rounded bg-green-100 text-green-700' >
+                        <span className={`text-center mx-auto px-4 py-1 rounded-full text-xs font-semibold border ${
+                            order.status === 'DELIVERED'
+                                ? 'text-emerald-700 bg-emerald-50 border-emerald-200'
+                                : order.status === 'ORDER_PLACED'
+                                    ? 'text-amber-700 bg-amber-50 border-amber-200'
+                                    : 'text-indigo-700 bg-indigo-50 border-indigo-200'
+                        }`} >
                             {order.status.replace(/_/g, ' ').toLowerCase()}
                         </span>
                     </div>

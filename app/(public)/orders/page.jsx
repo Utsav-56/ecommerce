@@ -2,15 +2,35 @@
 import PageTitle from "@/components/PageTitle"
 import { useEffect, useState } from "react";
 import OrderItem from "@/components/OrderItem";
-import { orderDummyData } from "@/assets/assets";
+import { getOrdersAction } from "@/lib/actions/orders";
+import Loading from "@/components/Loading";
+import { toast } from "react-hot-toast";
 
 export default function Orders() {
 
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setOrders(orderDummyData)
+        async function fetchOrders() {
+            try {
+                const res = await getOrdersAction();
+                if (res.success) {
+                    setOrders(res.orders);
+                } else {
+                    toast.error("Failed to load orders.");
+                }
+            } catch (err) {
+                console.error(err);
+                toast.error("Failed to load orders.");
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchOrders();
     }, []);
+
+    if (loading) return <Loading />;
 
     return (
         <div className="min-h-[70vh] mx-6">
