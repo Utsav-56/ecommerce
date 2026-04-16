@@ -68,9 +68,14 @@ const Navbar = () => {
                                         Admin Panel
                                     </Link>
                                 ) : (
-                                    <Link href="/orders" className="text-slate-600 hover:text-indigo-600 transition text-sm">
-                                        My Orders
-                                    </Link>
+                                    <>
+                                        <Link href="/profile" className="text-slate-600 hover:text-indigo-600 transition text-sm">
+                                            My Profile
+                                        </Link>
+                                        <Link href="/orders" className="text-slate-600 hover:text-indigo-600 transition text-sm">
+                                            My Orders
+                                        </Link>
+                                    </>
                                 )}
                                 <button onClick={handleLogout} className="px-6 py-2 bg-rose-500 hover:bg-rose-600 text-sm transition text-white rounded-full cursor-pointer">
                                     Logout
@@ -93,9 +98,14 @@ const Navbar = () => {
                                         Admin
                                     </Link>
                                 ) : (
-                                    <Link href="/orders" className="text-xs text-slate-600">
-                                        Orders
-                                    </Link>
+                                    <>
+                                        <Link href="/profile" className="text-xs text-slate-600">
+                                            Profile
+                                        </Link>
+                                        <Link href="/orders" className="text-xs text-slate-600">
+                                            Orders
+                                        </Link>
+                                    </>
                                 )}
                                 <button onClick={handleLogout} className="px-4 py-1.5 bg-rose-500 text-xs transition text-white rounded-full">
                                     Logout
