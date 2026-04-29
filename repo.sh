@@ -1,23 +1,33 @@
-#!/bin/bash
+git filter-branch --force --env-filter '
+  # 1. Hardcode your identity details
+  export GIT_AUTHOR_NAME="Utsav-56"
+  export GIT_AUTHOR_EMAIL="utsavpokhrel200@gmail.com"
+  export GIT_COMMITTER_NAME="Utsav-56"
+  export GIT_COMMITTER_EMAIL="utsavpokhrel200@gmail.com"
 
-# Set your starting point (roughly 80 days ago)
-BASE_TIMESTAMP=$(date -d "80 days ago" +%s)
+  # 2. Establish the exact absolute anchor point (90 days ago)
+  # Every repository has an internal counter or we can track steps.
+  # To bypass subshell variable resets, we can read/write a temporary counter file.
+  COUNTER_FILE="$GIT_DIR/custom_timeline_counter"
+  
+  if [ ! -f "$COUNTER_FILE" ]; then
+    # Start exactly 85 days ago in seconds
+    START_EPOCH=$(date -d "85 days ago" +%s)
+    echo "$START_EPOCH" > "$COUNTER_FILE"
+  fi
 
-while true; do
-  # 1. Add a random gap between commits (1 to 4 days forward)
-  RANDOM_GAP=$(shuf -i 86400-345600 -n 1)
-  BASE_TIMESTAMP=$((BASE_TIMESTAMP + RANDOM_GAP))
-  
-  # 2. Format the new chronological date
-  NEW_DATE=$(date -d "@$BASE_TIMESTAMP" +"%Y-%m-%d %H:%M:%S")
-  
-  # 3. Overwrite the author, email, author date, and committer date cleanly
+  CURRENT_EPOCH=$(cat "$COUNTER_FILE")
+
+  # 3. Add your brilliant 2 to 7 days random gap (in seconds)
+  # 2 days = 172800s, 7 days = 604800s
+  RANDOM_GAP=$(shuf -i 172800-604800 -n 1)
+  NEXT_EPOCH=$((CURRENT_EPOCH + RANDOM_GAP))
+
+  # Save the updated timestamp for the next commit loop
+  echo "$NEXT_EPOCH" > "$COUNTER_FILE"
+
+  # 4. Format the date cleanly for Git
+  NEW_DATE=$(date -d "@$CURRENT_EPOCH" +"%Y-%m-%d %H:%M:%S")
+  export GIT_AUTHOR_DATE="$NEW_DATE"
   export GIT_COMMITTER_DATE="$NEW_DATE"
-  git commit --amend \
-    --author="Utsav-56 <utsavpokhrel200@gmail.com>" \
-    --no-edit \
-    --date="$NEW_DATE"
-  
-  # 4. Move to the next commit. If we are done, break the loop.
-  git rebase --continue || break
-done
+' --tag-name-filter cat -- --branches --tags
