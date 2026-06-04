@@ -24,12 +24,23 @@ try {
   console.warn('Prisma config env parse warning:', e);
 }
 
+const getAbsoluteDatabaseUrl = () => {
+  const url = process.env.DATABASE_URL || 'file:prisma/dev.db';
+  if (url.startsWith('file:')) {
+    const filePath = url.slice(5);
+    if (path.isAbsolute(filePath)) return url;
+    // Resolve relative to the directory containing prisma.config.js (project root)
+    return `file:${path.resolve(__dirname, filePath)}`;
+  }
+  return url;
+};
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   datasource: {
-    url: process.env.DATABASE_URL || "file:./prisma/dev.db",
+    url: getAbsoluteDatabaseUrl(),
   },
   migrations: {
-    seed: "bun prisma/seed.js",
+    seed: "node prisma/seed.js",
   },
 });

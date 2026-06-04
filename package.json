@@ -3,8 +3,10 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev --turbopack",
-		"build": "next build",
+		"postinstall": "prisma generate",
+		"db:init": "node scripts/db-init.js",
+		"dev": "node scripts/db-init.js && next dev --turbopack",
+		"build": "prisma generate && node scripts/db-init.js && next build",
 		"start": "next start",
 		"lint": "next lint"
 	},

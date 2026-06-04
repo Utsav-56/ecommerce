@@ -39,22 +39,22 @@
 
 ## 🚀 Getting Started <a name="-getting-started"></a>
 
-First, install the dependencies. We recommend using `npm` for this project.
+This project is configured to use **pnpm** for package management and SQLite for the local database.
+
+### First-Time Setup
+
+To install all dependencies, generate the Prisma client, and initialize/seed the SQLite database automatically, run the setup script:
 
 ```bash
-npm install
+./setup.sh
 ```
 
-Then, run the development server:
+### Running the Development Server
+
+Start the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

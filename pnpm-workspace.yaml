@@ -1,2 +1,4 @@
 allowBuilds:
-  sharp: true
+   "@prisma/engines": true
+   prisma: true
+   sharp: true

@@ -22,7 +22,15 @@ const { PrismaLibSql } = require('@prisma/adapter-libsql')
 
 console.log("Runtime process.env.DATABASE_URL:", process.env.DATABASE_URL)
 
-const adapter = new PrismaLibSql({ url: process.env.DATABASE_URL || 'file:prisma/dev.db' })
+const rawUrl = process.env.DATABASE_URL || 'file:prisma/dev.db';
+let dbUrl = rawUrl;
+if (rawUrl.startsWith('file:')) {
+  const filePath = rawUrl.slice(5);
+  if (!path.isAbsolute(filePath)) {
+    dbUrl = `file:${path.resolve(__dirname, '..', filePath)}`;
+  }
+}
+const adapter = new PrismaLibSql({ url: dbUrl })
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
