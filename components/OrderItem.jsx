@@ -21,7 +21,11 @@ const OrderItem = ({ order }) => {
 		setLoadingPay(true);
 		const res = await retryPaymentAction(order.id);
 		if (res.success && res.redirectUrl) {
-			router.push(res.redirectUrl);
+			if (res.redirectUrl.startsWith('http')) {
+				window.location.href = res.redirectUrl;
+			} else {
+				router.push(res.redirectUrl);
+			}
 		} else {
 			toast.error(res.error || "Failed to initiate payment");
 			setLoadingPay(false);

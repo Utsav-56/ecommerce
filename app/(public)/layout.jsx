@@ -1,16 +1,15 @@
 'use client'
-import Banner from "@/components/Banner";
-import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 export default function PublicLayout({ children }) {
-
     return (
-        <>
-            <Banner />
+        <div className="bg-background text-foreground relative">
             <Navbar />
-            {children}
+            <main>
+                {children}
+            </main>
             <Footer />
-        </>
-    );
+        </div>
+    )
 }
