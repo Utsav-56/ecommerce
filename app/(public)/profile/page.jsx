@@ -53,9 +53,9 @@ export default function ProfilePage() {
       KHALTI: "bg-purple-50 text-purple-700 border-purple-200",
       STRIPE: "bg-indigo-50 text-indigo-700 border-indigo-200",
       PAYPAL: "bg-blue-50 text-blue-700 border-blue-200",
-      COD: "bg-slate-50 text-slate-700 border-slate-200"
+      COD: "bg-background text-foreground border-border"
     }
-    const styleClass = styles[method] || "bg-slate-50 text-slate-600 border-slate-200"
+    const styleClass = styles[method] || "bg-background text-muted-foreground border-border"
     
     return (
       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${styleClass}`}>
@@ -65,42 +65,42 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12 px-6 text-slate-650">
+    <div className="min-h-screen bg-background py-12 px-6 text-foreground">
       <div className="max-w-6xl mx-auto space-y-8">
         
         {/* Page Title */}
-        <h1 className="text-3xl font-bold text-slate-800">My Profile</h1>
+        <h1 className="text-3xl font-bold text-foreground">My Profile</h1>
 
         {/* Profile Details Card */}
         {user && (
-          <div className="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-xs flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
+          <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-xs flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
             <div className="flex items-center gap-5">
-              <div className="w-16 h-16 rounded-full bg-indigo-50 border border-indigo-150 flex items-center justify-center text-indigo-600 font-bold text-2xl">
+              <div className="w-16 h-16 rounded-full bg-indigo-50 border border-indigo-150 flex items-center justify-center text-primary font-bold text-2xl">
                 {user.name.charAt(0).toUpperCase()}
               </div>
               <div className="space-y-1">
-                <h2 className="text-xl font-semibold text-slate-805 flex items-center gap-1.5">
-                  <UserIcon size={16} className="text-slate-400" />
+                <h2 className="text-xl font-semibold text-foreground flex items-center gap-1.5">
+                  <UserIcon size={16} className="text-muted-foreground" />
                   {user.name}
                   {user.role === 'ADMIN' && (
-                    <span className="text-[10px] uppercase font-bold tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded ml-2">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-primary bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded ml-2">
                       Admin
                     </span>
                   )}
                 </h2>
-                <p className="text-sm text-slate-500 flex items-center gap-1.5">
-                  <MailIcon size={14} className="text-slate-400" />
+                <p className="text-sm text-muted-foreground flex items-center gap-1.5">
+                  <MailIcon size={14} className="text-muted-foreground" />
                   {user.email}
                 </p>
               </div>
             </div>
 
             {user.address && (
-              <div className="border-t md:border-t-0 md:border-l border-slate-200 pt-4 md:pt-0 md:pl-8 flex items-start gap-2 max-w-sm">
-                <MapPinIcon size={16} className="text-slate-400 mt-1 shrink-0" />
+              <div className="border-t md:border-t-0 md:border-l border-border pt-4 md:pt-0 md:pl-8 flex items-start gap-2 max-w-sm">
+                <MapPinIcon size={16} className="text-muted-foreground mt-1 shrink-0" />
                 <div>
-                  <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-1">Shipping Address</p>
-                  <p className="text-sm text-slate-600 leading-relaxed">{user.address}</p>
+                  <p className="text-xs text-muted-foreground font-semibold uppercase tracking-wider mb-1">Shipping Address</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{user.address}</p>
                 </div>
               </div>
             )}
@@ -108,17 +108,17 @@ export default function ProfilePage() {
         )}
 
         {/* Purchase History */}
-        <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-          <div className="p-6 border-b border-slate-150 flex items-center gap-2 bg-slate-50/50">
-            <ShoppingBagIcon size={20} className="text-slate-500" />
-            <h3 className="text-lg font-semibold text-slate-800">Purchase History</h3>
-            <span className="text-xs font-normal text-slate-400 ml-1">({purchases.length} items purchased)</span>
+        <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-border flex items-center gap-2 bg-background">
+            <ShoppingBagIcon size={20} className="text-muted-foreground" />
+            <h3 className="text-lg font-semibold text-foreground">Purchase History</h3>
+            <span className="text-xs font-normal text-muted-foreground ml-1">({purchases.length} items purchased)</span>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-sm">
               <thead>
-                <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-medium">
+                <tr className="border-b border-border bg-background text-muted-foreground font-medium">
                   <th className="p-4 px-6">Product</th>
                   <th className="p-4 px-6">Category</th>
                   <th className="p-4 px-6 text-center">Quantity</th>
@@ -130,7 +130,7 @@ export default function ProfilePage() {
               <tbody className="divide-y divide-slate-100">
                 {purchases.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="p-12 text-center text-slate-400">
+                    <td colSpan={6} className="p-12 text-center text-muted-foreground">
                       No purchases found. Shop some products to build your history!
                     </td>
                   </tr>
@@ -138,9 +138,9 @@ export default function ProfilePage() {
                   purchases.map((purchase) => {
                     const firstImage = purchase.product.images?.[0] || "/placeholder.png"
                     return (
-                      <tr key={purchase.id} className="hover:bg-slate-50/50 transition">
+                      <tr key={purchase.id} className="hover:bg-background transition">
                         <td className="p-4 px-6 flex items-center gap-4">
-                          <div className="relative w-12 h-12 rounded-lg border border-slate-200 overflow-hidden bg-slate-50 shrink-0 flex items-center justify-center">
+                          <div className="relative w-12 h-12 rounded-lg border border-border overflow-hidden bg-background shrink-0 flex items-center justify-center">
                             <Image
                               src={firstImage}
                               alt={purchase.product.name}
@@ -149,22 +149,22 @@ export default function ProfilePage() {
                               className="object-cover h-10 w-auto"
                             />
                           </div>
-                          <span className="font-semibold text-slate-800 hover:text-indigo-650 transition cursor-pointer" onClick={() => router.push(`/product/${purchase.product.id}`)}>
+                          <span className="font-semibold text-foreground hover:text-indigo-650 transition cursor-pointer" onClick={() => router.push(`/product/${purchase.product.id}`)}>
                             {purchase.product.name}
                           </span>
                         </td>
                         <td className="p-4 px-6">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground">
                             {purchase.product.category}
                           </span>
                         </td>
-                        <td className="p-4 px-6 text-center font-medium text-slate-700">
+                        <td className="p-4 px-6 text-center font-medium text-foreground">
                           {purchase.quantity}
                         </td>
-                        <td className="p-4 px-6 font-semibold text-slate-800">
+                        <td className="p-4 px-6 font-semibold text-foreground">
                           ${(purchase.pricePaid * purchase.quantity).toFixed(2)}
                           {purchase.quantity > 1 && (
-                            <span className="block text-xs font-normal text-slate-400">
+                            <span className="block text-xs font-normal text-muted-foreground">
                               (${(purchase.pricePaid).toFixed(2)} each)
                             </span>
                           )}
@@ -172,7 +172,7 @@ export default function ProfilePage() {
                         <td className="p-4 px-6">
                           {getPaymentBadge(purchase.paymentMethod)}
                         </td>
-                        <td className="p-4 px-6 text-slate-400">
+                        <td className="p-4 px-6 text-muted-foreground">
                           <div className="flex items-center gap-1.5">
                             <CalendarIcon size={13} className="text-slate-350" />
                             {new Date(purchase.createdAt).toLocaleDateString(undefined, {

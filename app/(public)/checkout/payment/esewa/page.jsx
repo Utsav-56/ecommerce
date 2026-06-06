@@ -8,9 +8,9 @@ async function EsewaRedirectContent({ searchParamsPromise }) {
   
   if (!orderId || !amount) {
     return (
-      <div className="text-center py-20 text-slate-500">
+      <div className="text-center py-20 text-muted-foreground">
         <h2 className="text-xl font-bold">Invalid checkout references</h2>
-        <p className="text-sm text-slate-400 mt-2">Could not resolve payment credentials.</p>
+        <p className="text-sm text-muted-foreground mt-2">Could not resolve payment credentials.</p>
       </div>
     )
   }
@@ -27,12 +27,12 @@ async function EsewaRedirectContent({ searchParamsPromise }) {
   const failureUrl = `${appUrl}/api/payments/esewa/failure`
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-slate-650 px-6 text-center">
+    <div className="flex flex-col items-center justify-center min-h-[60vh] text-foreground px-6 text-center">
       <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-150 flex items-center justify-center text-xl font-bold mb-4">
         e
       </div>
-      <h2 className="text-xl font-bold text-slate-800 mb-1">Connecting to eSewa ePay</h2>
-      <p className="text-sm text-slate-400 mb-6">Please wait while we redirect you to the merchant portal...</p>
+      <h2 className="text-xl font-bold text-foreground mb-1">Connecting to eSewa ePay</h2>
+      <p className="text-sm text-muted-foreground mb-6">Please wait while we redirect you to the merchant portal...</p>
       <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
 
       {/* Hidden form auto-submitting to eSewa Sandbox */}

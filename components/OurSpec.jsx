@@ -13,9 +13,9 @@ const OurSpecs = () => {
                     ourSpecsData.map((spec, index) => {
                         return (
                             <div className='relative h-44 px-8 flex flex-col items-center justify-center w-full text-center border rounded-lg group' style={{ backgroundColor: spec.accent + 10, borderColor: spec.accent + 30 }} key={index}>
-                                <h3 className='text-slate-800 font-medium'>{spec.title}</h3>
-                                <p className='text-sm text-slate-600 mt-3'>{spec.description}</p>
-                                <div className='absolute -top-5 text-white size-10 flex items-center justify-center rounded-md group-hover:scale-105 transition' style={{ backgroundColor: spec.accent }}>
+                                <h3 className='text-foreground font-medium'>{spec.title}</h3>
+                                <p className='text-sm text-muted-foreground mt-3'>{spec.description}</p>
+                                <div className='absolute -top-5 text-primary-foreground size-10 flex items-center justify-center rounded-md group-hover:scale-105 transition' style={{ backgroundColor: spec.accent }}>
                                     <spec.icon size={20} />
                                 </div>
                             </div>

@@ -75,14 +75,14 @@ function ShopContent() {
     })
 
     return (
-        <div className="min-h-[70vh] mx-6 my-8 text-slate-650">
+        <div className="min-h-[70vh] mx-6 my-8 text-foreground">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
                 
                 {/* Sidebar Filters */}
                 <div className="w-full md:w-64 shrink-0">
-                    <div className="border border-slate-200 p-5 rounded-xl bg-white sticky top-24 shadow-sm">
-                        <div className="flex justify-between items-center pb-4 border-b border-slate-100 mb-5">
-                            <h2 className="text-lg font-semibold text-slate-800">Filters</h2>
+                    <div className="border border-border p-5 rounded-xl bg-card sticky top-24 shadow-sm">
+                        <div className="flex justify-between items-center pb-4 border-b border-border mb-5">
+                            <h2 className="text-lg font-semibold text-foreground">Filters</h2>
                             <button 
                                 onClick={resetFilters} 
                                 className="text-xs text-indigo-650 hover:text-indigo-850 font-medium cursor-pointer"
@@ -94,12 +94,12 @@ function ShopContent() {
                         {/* Search Term Badge */}
                         {search && (
                             <div className="mb-5">
-                                <p className="text-xs text-slate-400 mb-2">Search Query</p>
-                                <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-150 text-slate-700 text-xs font-medium rounded-full">
+                                <p className="text-xs text-muted-foreground mb-2">Search Query</p>
+                                <span className="inline-flex items-center gap-1 px-3 py-1 bg-slate-150 text-foreground text-xs font-medium rounded-full">
                                     "{search}"
                                     <button 
                                         onClick={() => router.push('/shop')} 
-                                        className="text-slate-400 hover:text-slate-600 ml-1 font-bold cursor-pointer"
+                                        className="text-muted-foreground hover:text-muted-foreground ml-1 font-bold cursor-pointer"
                                     >
                                         ×
                                     </button>
@@ -112,12 +112,12 @@ function ShopContent() {
                             <p className="text-sm font-semibold text-slate-850 mb-3">Categories</p>
                             <div className="flex flex-col gap-2 max-h-56 overflow-y-auto pr-2 custom-scrollbar">
                                 {categories.map((cat) => (
-                                    <label key={cat} className="flex items-center gap-2.5 text-sm text-slate-650 cursor-pointer hover:text-slate-900 transition">
+                                    <label key={cat} className="flex items-center gap-2.5 text-sm text-foreground cursor-pointer hover:text-foreground transition">
                                         <input
                                             type="checkbox"
                                             checked={selectedCategories.includes(cat)}
                                             onChange={() => handleCategoryToggle(cat)}
-                                            className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                                            className="rounded border-border text-primary focus:ring-indigo-500 cursor-pointer"
                                         />
                                         {cat}
                                     </label>
@@ -134,15 +134,15 @@ function ShopContent() {
                                     placeholder="Min"
                                     value={minPrice}
                                     onChange={(e) => setMinPrice(e.target.value)}
-                                    className="w-full border border-slate-200 rounded-lg p-2 px-3 outline-none text-sm text-slate-800 focus:border-indigo-500 bg-slate-50 focus:bg-white transition"
+                                    className="w-full border border-border rounded-lg p-2 px-3 outline-none text-sm text-foreground focus:border-primary bg-background focus:bg-card transition"
                                 />
-                                <span className="text-slate-400">-</span>
+                                <span className="text-muted-foreground">-</span>
                                 <input
                                     type="number"
                                     placeholder="Max"
                                     value={maxPrice}
                                     onChange={(e) => setMaxPrice(e.target.value)}
-                                    className="w-full border border-slate-200 rounded-lg p-2 px-3 outline-none text-sm text-slate-800 focus:border-indigo-500 bg-slate-50 focus:bg-white transition"
+                                    className="w-full border border-border rounded-lg p-2 px-3 outline-none text-sm text-foreground focus:border-primary bg-background focus:bg-card transition"
                                 />
                             </div>
                         </div>
@@ -154,20 +154,20 @@ function ShopContent() {
                     <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
                         <h1 
                             onClick={() => router.push('/shop')} 
-                            className="text-2xl text-slate-600 flex items-center gap-2 cursor-pointer hover:text-slate-800 transition"
+                            className="text-2xl text-muted-foreground flex items-center gap-2 cursor-pointer hover:text-foreground transition"
                         > 
                             {search && <MoveLeftIcon size={20} />}  
-                            All <span className="text-slate-800 font-bold">Products</span>
-                            <span className="text-sm font-normal text-slate-400 ml-1">({sortedProducts.length})</span>
+                            All <span className="text-foreground font-bold">Products</span>
+                            <span className="text-sm font-normal text-muted-foreground ml-1">({sortedProducts.length})</span>
                         </h1>
 
                         {/* Sort Dropdown */}
                         <div className="flex items-center gap-2">
-                            <span className="text-xs text-slate-450 font-medium">Sort By:</span>
+                            <span className="text-xs text-muted-foreground font-medium">Sort By:</span>
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="border border-slate-200 rounded-lg p-1.5 px-3 text-sm text-slate-750 outline-none focus:border-indigo-500 bg-white cursor-pointer font-medium"
+                                className="border border-border rounded-lg p-1.5 px-3 text-sm text-slate-750 outline-none focus:border-primary bg-card cursor-pointer font-medium"
                             >
                                 <option value="newest">Newest</option>
                                 <option value="price-low-to-high">Price: Low to High</option>
@@ -178,11 +178,11 @@ function ShopContent() {
                     </div>
 
                     {sortedProducts.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-20 text-center border border-dashed border-slate-200 rounded-2xl bg-white p-6 shadow-sm">
-                            <p className="text-slate-450 mb-2 font-medium">No products match your filters.</p>
+                        <div className="flex flex-col items-center justify-center py-20 text-center border border-dashed border-border rounded-2xl bg-card p-6 shadow-sm">
+                            <p className="text-muted-foreground mb-2 font-medium">No products match your filters.</p>
                             <button 
                                 onClick={resetFilters} 
-                                className="text-sm text-indigo-600 hover:text-indigo-800 font-bold transition cursor-pointer"
+                                className="text-sm text-primary hover:text-indigo-800 font-bold transition cursor-pointer"
                             >
                                 Clear filters and try again
                             </button>

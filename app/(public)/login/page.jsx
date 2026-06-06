@@ -59,16 +59,16 @@ function LoginForm() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[70vh] px-4 py-16 bg-slate-50">
-      <div className="w-full max-w-md bg-white border border-slate-200 shadow-xl rounded-2xl p-8">
+    <div className="flex items-center justify-center min-h-[70vh] px-4 py-16 bg-background">
+      <div className="w-full max-w-md bg-card border border-border shadow-xl rounded-2xl p-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-800">Welcome Back</h2>
-          <p className="text-sm text-slate-500 mt-2">Log in to your gocart account</p>
+          <h2 className="text-3xl font-bold text-foreground">Welcome Back</h2>
+          <p className="text-sm text-muted-foreground mt-2">Log in to your gocart account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
               Email Address
             </label>
             <input 
@@ -76,14 +76,14 @@ function LoginForm() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="e.g. user@gocart.com" 
-              className="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition text-slate-800 text-sm"
+              className="w-full p-3 border border-border rounded-lg outline-none focus:border-primary transition text-foreground text-sm"
               required
               disabled={isPending}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
               Password
             </label>
             <input 
@@ -91,7 +91,7 @@ function LoginForm() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="Enter your password" 
-              className="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition text-slate-800 text-sm"
+              className="w-full p-3 border border-border rounded-lg outline-none focus:border-primary transition text-foreground text-sm"
               required
               disabled={isPending}
             />
@@ -99,16 +99,16 @@ function LoginForm() {
 
           <button 
             type="submit" 
-            className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition active:scale-98 disabled:bg-indigo-400 cursor-pointer"
+            className="w-full py-3 bg-primary hover:bg-indigo-700 text-primary-foreground rounded-lg font-medium transition active:scale-98 disabled:bg-primary cursor-pointer"
             disabled={isPending}
           >
             {isPending ? 'Logging in...' : 'Log In'}
           </button>
         </form>
 
-        <div className="text-center mt-6 text-sm text-slate-500">
+        <div className="text-center mt-6 text-sm text-muted-foreground">
           Don't have an account?{' '}
-          <Link href="/signup" className="text-indigo-600 font-medium hover:underline">
+          <Link href="/signup" className="text-primary font-medium hover:underline">
             Sign Up
           </Link>
         </div>
@@ -119,7 +119,7 @@ function LoginForm() {
 
 export default function Login() {
   return (
-    <Suspense fallback={<div className="text-center py-20 text-slate-400">Loading form...</div>}>
+    <Suspense fallback={<div className="text-center py-20 text-muted-foreground">Loading form...</div>}>
       <LoginForm />
     </Suspense>
   )

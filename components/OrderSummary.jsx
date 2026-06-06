@@ -16,15 +16,15 @@ const OrderSummary = ({ totalPrice }) => {
     }
 
     return (
-        <div className='w-full max-w-lg lg:max-w-[340px] bg-slate-50/30 border border-slate-200 text-slate-500 text-sm rounded-xl p-7 shadow-sm'>
+        <div className='w-full max-w-lg lg:max-w-[340px] bg-background border border-border text-muted-foreground text-sm rounded-xl p-7 shadow-sm'>
             <h2 className='text-xl font-medium text-slate-655 mb-5'>Order Summary</h2>
             
-            <div className='pb-4 border-b border-slate-200'>
-                <div className='flex justify-between text-slate-600 mb-2'>
+            <div className='pb-4 border-b border-border'>
+                <div className='flex justify-between text-muted-foreground mb-2'>
                     <p>Subtotal:</p>
-                    <p className="font-semibold text-slate-800">{currency}{totalPrice.toLocaleString()}</p>
+                    <p className="font-semibold text-foreground">{currency}{totalPrice.toLocaleString()}</p>
                 </div>
-                <div className='flex justify-between text-slate-600'>
+                <div className='flex justify-between text-muted-foreground'>
                     <p>Shipping:</p>
                     <p className="text-emerald-600 font-semibold">Free</p>
                 </div>
@@ -35,7 +35,7 @@ const OrderSummary = ({ totalPrice }) => {
                 <p className='text-lg'>{currency}{totalPrice.toLocaleString()}</p>
             </div>
 
-            <button onClick={handleCheckoutRedirect} className='w-full bg-slate-800 text-white py-3 rounded-xl hover:bg-slate-900 active:scale-97 transition-all cursor-pointer font-semibold text-center'>
+            <button onClick={handleCheckoutRedirect} className='w-full bg-primary text-primary-foreground py-3 rounded-xl hover:bg-primary active:scale-97 transition-all cursor-pointer font-semibold text-center'>
                 Proceed to Checkout
             </button>
         </div>

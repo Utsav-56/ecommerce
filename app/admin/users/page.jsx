@@ -54,39 +54,39 @@ export default function AdminUsers() {
   if (loading) return <Loading />
 
   return (
-    <div className="text-slate-500 mb-28">
-      <h1 className="text-2xl text-slate-800 font-medium">User Management</h1>
-      <p className="mt-2 text-sm text-slate-400">View registered users and toggle admin access privileges.</p>
+    <div className="text-muted-foreground mb-28">
+      <h1 className="text-2xl text-foreground font-medium">User Management</h1>
+      <p className="mt-2 text-sm text-muted-foreground">View registered users and toggle admin access privileges.</p>
 
-      <div className="mt-8 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+      <div className="mt-8 border border-border rounded-xl overflow-hidden bg-card shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-sm">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-medium">
+              <tr className="border-b border-border bg-background text-muted-foreground font-medium">
                 <th className="p-4 px-6">Name</th>
                 <th className="p-4 px-6">Email</th>
                 <th className="p-4 px-6">Role</th>
-                <th className="p-4 px-6 font-normal text-slate-400">Joined Date</th>
+                <th className="p-4 px-6 font-normal text-muted-foreground">Joined Date</th>
                 <th className="p-4 px-6 text-center">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {users.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="p-8 text-center text-slate-400">
+                  <td colSpan={5} className="p-8 text-center text-muted-foreground">
                     No users found.
                   </td>
                 </tr>
               ) : (
                 users.map((user) => (
-                  <tr key={user.id} className="hover:bg-slate-50/50 transition">
-                    <td className="p-4 px-6 font-medium text-slate-800 flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">
+                  <tr key={user.id} className="hover:bg-background transition">
+                    <td className="p-4 px-6 font-medium text-foreground flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-muted-foreground font-bold">
                         {user.name.charAt(0).toUpperCase()}
                       </div>
                       {user.name}
                     </td>
-                    <td className="p-4 px-6 text-slate-600">
+                    <td className="p-4 px-6 text-muted-foreground">
                       {user.email}
                     </td>
                     <td className="p-4 px-6">
@@ -96,13 +96,13 @@ export default function AdminUsers() {
                           Admin
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-muted text-muted-foreground border border-border">
                           <UserIcon size={12} />
                           Customer
                         </span>
                       )}
                     </td>
-                    <td className="p-4 px-6 text-slate-400">
+                    <td className="p-4 px-6 text-muted-foreground">
                       {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : "N/A"}
                     </td>
                     <td className="p-4 px-6 text-center">
@@ -111,8 +111,8 @@ export default function AdminUsers() {
                         disabled={updatingUserId === user.id || user.email === 'admin@gocart.com'}
                         className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-medium border transition cursor-pointer ${
                           user.role === "ADMIN"
-                            ? "border-rose-200 text-rose-600 bg-rose-50 hover:bg-rose-100 disabled:opacity-40"
-                            : "border-indigo-200 text-indigo-600 bg-indigo-50 hover:bg-indigo-100"
+                            ? "border-rose-200 text-destructive bg-rose-50 hover:bg-rose-100 disabled:opacity-40"
+                            : "border-indigo-200 text-primary bg-indigo-50 hover:bg-indigo-100"
                         } disabled:cursor-not-allowed`}
                       >
                         {updatingUserId === user.id ? (

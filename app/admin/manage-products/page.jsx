@@ -83,15 +83,15 @@ export default function ManageProducts() {
   if (loading) return <Loading />
 
   return (
-    <div className="text-slate-500 mb-28">
-      <h1 className="text-2xl text-slate-800 font-medium">Manage Products</h1>
-      <p className="mt-2 text-sm text-slate-400">View, toggle stock availability, or delete existing products in the database.</p>
+    <div className="text-muted-foreground mb-28">
+      <h1 className="text-2xl text-foreground font-medium">Manage Products</h1>
+      <p className="mt-2 text-sm text-muted-foreground">View, toggle stock availability, or delete existing products in the database.</p>
 
-      <div className="mt-8 border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+      <div className="mt-8 border border-border rounded-xl overflow-hidden bg-card shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-sm">
             <thead>
-              <tr className="border-b border-slate-200 bg-slate-50 text-slate-600 font-medium">
+              <tr className="border-b border-border bg-background text-muted-foreground font-medium">
                 <th className="p-4 px-6">Product Image</th>
                 <th className="p-4 px-6">Name</th>
                 <th className="p-4 px-6">Category</th>
@@ -103,7 +103,7 @@ export default function ManageProducts() {
             <tbody className="divide-y divide-slate-100">
               {products.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-slate-400">
+                  <td colSpan={6} className="p-8 text-center text-muted-foreground">
                     No products found. Add some products to see them here!
                   </td>
                 </tr>
@@ -111,9 +111,9 @@ export default function ManageProducts() {
                 products.map((product) => {
                   const firstImage = product.images?.[0] || "/placeholder.png"
                   return (
-                    <tr key={product.id} className="hover:bg-slate-50/50 transition">
+                    <tr key={product.id} className="hover:bg-background transition">
                       <td className="p-4 px-6">
-                        <div className="relative w-12 h-12 rounded-lg border border-slate-200 overflow-hidden bg-slate-50 flex items-center justify-center">
+                        <div className="relative w-12 h-12 rounded-lg border border-border overflow-hidden bg-background flex items-center justify-center">
                           <Image
                             src={firstImage}
                             alt={product.name}
@@ -123,18 +123,18 @@ export default function ManageProducts() {
                           />
                         </div>
                       </td>
-                      <td className="p-4 px-6 font-medium text-slate-800">
+                      <td className="p-4 px-6 font-medium text-foreground">
                         {product.name}
                       </td>
                       <td className="p-4 px-6">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-800">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted text-foreground">
                           {product.category}
                         </span>
                       </td>
-                      <td className="p-4 px-6 font-medium text-slate-700">
+                      <td className="p-4 px-6 font-medium text-foreground">
                         ${product.price.toFixed(2)}
                         {product.mrp > product.price && (
-                          <span className="block text-xs line-through text-slate-400">
+                          <span className="block text-xs line-through text-muted-foreground">
                             ${product.mrp.toFixed(2)}
                           </span>
                         )}
@@ -166,7 +166,7 @@ export default function ManageProducts() {
                         <button
                           onClick={() => handleDeleteProduct(product.id)}
                           disabled={actionLoading === product.id}
-                          className="p-2 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition disabled:opacity-50 cursor-pointer inline-flex items-center justify-center"
+                          className="p-2 text-destructive hover:text-rose-700 hover:bg-rose-50 rounded-lg transition disabled:opacity-50 cursor-pointer inline-flex items-center justify-center"
                           title="Delete Product"
                         >
                           <Trash2Icon size={18} />

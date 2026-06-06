@@ -20,6 +20,9 @@
 # production
 /build
 
+*.md
+assets/
+
 # misc
 .DS_Store
 *.pem
@@ -44,3 +47,4 @@ next-env.d.ts
 
 bun.lock
 prisma/dev.db
+public/

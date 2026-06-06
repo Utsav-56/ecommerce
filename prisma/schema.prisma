@@ -115,12 +115,24 @@ model Payment {
     orderId       String
     amount        Float
     status        String   // PENDING, SUCCESS, FAILED
-    paymentMethod String   // STRIPE, COD
+    paymentMethod String   // STRIPE, COD, ESEWA, KHALTI
     transactionId String?  @unique
     createdAt     DateTime @default(now())
     updatedAt     DateTime @updatedAt
 
-    order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    order    Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    webhooks WebhookEvent[]
+}
+
+model WebhookEvent {
+    id        String   @id @default(cuid())
+    paymentId String?
+    gateway   String   // "ESEWA" or "KHALTI"
+    eventData String   // JSON stringified payload
+    status    String   // "SUCCESS", "FAILED"
+    createdAt DateTime @default(now())
+
+    payment   Payment? @relation(fields: [paymentId], references: [id])
 }
 
 model Rating {

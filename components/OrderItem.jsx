@@ -20,7 +20,7 @@ const OrderItem = ({ order }) => {
                     <div className="flex flex-col gap-6">
                         {order.orderItems.map((item, index) => (
                             <div key={index} className="flex items-center gap-4">
-                                <div className="w-20 aspect-square bg-slate-100 flex items-center justify-center rounded-md">
+                                <div className="w-20 aspect-square bg-muted flex items-center justify-center rounded-md">
                                     <Image
                                         className="h-14 w-auto"
                                         src={item.product.images[0]}
@@ -30,13 +30,13 @@ const OrderItem = ({ order }) => {
                                     />
                                 </div>
                                 <div className="flex flex-col justify-center text-sm">
-                                    <p className="font-medium text-slate-600 text-base">{item.product.name}</p>
+                                    <p className="font-medium text-muted-foreground text-base">{item.product.name}</p>
                                     <p>{currency}{item.price} Qty : {item.quantity} </p>
                                     <p className="mb-1">{new Date(order.createdAt).toDateString()}</p>
                                     <div>
                                         {ratings.find(rating => order.id === rating.orderId && item.product.id === rating.productId)
                                             ? <Rating value={ratings.find(rating => order.id === rating.orderId && item.product.id === rating.productId).rating} />
-                                            : <button onClick={() => setRatingModal({ orderId: order.id, productId: item.product.id })} className={`text-green-500 hover:bg-green-50 transition ${order.status !== "DELIVERED" && 'hidden'}`}>Rate Product</button>
+                                            : <button onClick={() => setRatingModal({ orderId: order.id, productId: item.product.id })} className={`text-primary hover:bg-green-50 transition ${order.status !== "DELIVERED" && 'hidden'}`}>Rate Product</button>
                                         }</div>
                                     {ratingModal && <RatingModal ratingModal={ratingModal} setRatingModal={setRatingModal} />}
                                 </div>
@@ -71,9 +71,9 @@ const OrderItem = ({ order }) => {
             {/* Mobile */}
             <tr className="md:hidden">
                 <td colSpan={5}>
-                    <p className="font-semibold text-slate-800">{order.address.name}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{order.address.street}, {order.address.city}, {order.address.state} - {order.address.zip}</p>
-                    <p className="text-xs text-slate-455">{order.address.phone}</p>
+                    <p className="font-semibold text-foreground">{order.address.name}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{order.address.street}, {order.address.city}, {order.address.state} - {order.address.zip}</p>
+                    <p className="text-xs text-muted-foreground">{order.address.phone}</p>
                     <br />
                     <div className="flex items-center">
                         <span className={`text-center mx-auto px-4 py-1 rounded-full text-xs font-semibold border ${
@@ -90,7 +90,7 @@ const OrderItem = ({ order }) => {
             </tr>
             <tr>
                 <td colSpan={4}>
-                    <div className="border-b border-slate-300 w-6/7 mx-auto" />
+                    <div className="border-b border-border w-6/7 mx-auto" />
                 </td>
             </tr>
         </>

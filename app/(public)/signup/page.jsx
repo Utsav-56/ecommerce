@@ -50,16 +50,16 @@ export default function Signup() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[80vh] px-4 py-16 bg-slate-50">
-      <div className="w-full max-w-md bg-white border border-slate-200 shadow-xl rounded-2xl p-8">
+    <div className="flex items-center justify-center min-h-[80vh] px-4 py-16 bg-background">
+      <div className="w-full max-w-md bg-card border border-border shadow-xl rounded-2xl p-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-800">Create Account</h2>
-          <p className="text-sm text-slate-500 mt-2">Join gocart today</p>
+          <h2 className="text-3xl font-bold text-foreground">Create Account</h2>
+          <p className="text-sm text-muted-foreground mt-2">Join gocart today</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
               Full Name
             </label>
             <input 
@@ -67,14 +67,14 @@ export default function Signup() {
               value={name}
               onChange={e => setName(e.target.value)}
               placeholder="e.g. John Doe" 
-              className="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition text-slate-800 text-sm"
+              className="w-full p-3 border border-border rounded-lg outline-none focus:border-primary transition text-foreground text-sm"
               required
               disabled={isPending}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
               Email Address
             </label>
             <input 
@@ -82,14 +82,14 @@ export default function Signup() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="e.g. johndoe@example.com" 
-              className="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition text-slate-800 text-sm"
+              className="w-full p-3 border border-border rounded-lg outline-none focus:border-primary transition text-foreground text-sm"
               required
               disabled={isPending}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
               Password
             </label>
             <input 
@@ -97,7 +97,7 @@ export default function Signup() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="Min 6 characters" 
-              className="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition text-slate-800 text-sm"
+              className="w-full p-3 border border-border rounded-lg outline-none focus:border-primary transition text-foreground text-sm"
               required
               minLength={6}
               disabled={isPending}
@@ -105,7 +105,7 @@ export default function Signup() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-2">
+            <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
               Shipping Address
             </label>
             <textarea 
@@ -113,23 +113,23 @@ export default function Signup() {
               onChange={e => setAddress(e.target.value)}
               placeholder="Enter your full street address" 
               rows={3}
-              className="w-full p-3 border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition text-slate-800 text-sm resize-none"
+              className="w-full p-3 border border-border rounded-lg outline-none focus:border-primary transition text-foreground text-sm resize-none"
               disabled={isPending}
             />
           </div>
 
           <button 
             type="submit" 
-            className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium transition active:scale-98 disabled:bg-indigo-400 cursor-pointer"
+            className="w-full py-3 bg-primary hover:bg-indigo-700 text-primary-foreground rounded-lg font-medium transition active:scale-98 disabled:bg-primary cursor-pointer"
             disabled={isPending}
           >
             {isPending ? 'Registering...' : 'Sign Up'}
           </button>
         </form>
 
-        <div className="text-center mt-6 text-sm text-slate-500">
+        <div className="text-center mt-6 text-sm text-muted-foreground">
           Already have an account?{' '}
-          <Link href="/login" className="text-indigo-600 font-medium hover:underline">
+          <Link href="/login" className="text-primary font-medium hover:underline">
             Log In
           </Link>
         </div>

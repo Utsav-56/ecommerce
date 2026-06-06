@@ -46,12 +46,12 @@ const RatingModal = ({ ratingModal, setRatingModal }) => {
 
     return (
         <div className='fixed inset-0 z-120 flex items-center justify-center bg-black/40 backdrop-blur-xs'>
-            <div className='bg-white p-8 rounded-2xl shadow-xl w-96 relative border border-slate-100'>
+            <div className='bg-card p-8 rounded-2xl shadow-xl w-96 relative border border-border'>
                 <button onClick={() => setRatingModal(null)} className='absolute top-4 right-4 text-gray-400 hover:text-gray-650 transition cursor-pointer'>
                     <XIcon size={20} />
                 </button>
-                <h2 className='text-xl font-semibold text-slate-800 mb-2'>Rate Product</h2>
-                <p className="text-xs text-slate-400 mb-5">Share your experience with this item to help other customers.</p>
+                <h2 className='text-xl font-semibold text-foreground mb-2'>Rate Product</h2>
+                <p className="text-xs text-muted-foreground mb-5">Share your experience with this item to help other customers.</p>
                 
                 <div className='flex items-center justify-center gap-1.5 mb-6'>
                     {Array.from({ length: 5 }, (_, i) => (
@@ -63,7 +63,7 @@ const RatingModal = ({ ratingModal, setRatingModal }) => {
                     ))}
                 </div>
                 <textarea
-                    className='w-full p-3 border border-slate-200 rounded-xl mb-5 focus:outline-none focus:border-indigo-500 text-sm text-slate-800 bg-slate-50 focus:bg-white transition'
+                    className='w-full p-3 border border-border rounded-xl mb-5 focus:outline-none focus:border-primary text-sm text-foreground bg-background focus:bg-card transition'
                     placeholder='Write your review here...'
                     rows='4'
                     value={review}
@@ -73,7 +73,7 @@ const RatingModal = ({ ratingModal, setRatingModal }) => {
                 <button 
                     onClick={handleSubmit} 
                     disabled={loading}
-                    className='w-full bg-indigo-600 text-white py-2.5 rounded-xl hover:bg-indigo-700 transition font-semibold cursor-pointer disabled:opacity-50'
+                    className='w-full bg-primary text-primary-foreground py-2.5 rounded-xl hover:bg-indigo-700 transition font-semibold cursor-pointer disabled:opacity-50'
                 >
                     {loading ? 'Submitting...' : 'Submit Rating'}
                 </button>
