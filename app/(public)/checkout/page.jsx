@@ -12,6 +12,7 @@ import {
 } from "@/components/icons/payment-methods";
 import { placeOrderAction, validateCouponAction } from "@/lib/actions/orders";
 import { clearCart } from "@/lib/features/cart/cartSlice";
+import { usePaymentGateway } from "@/hooks/usePaymentGateway";
 
 export default function CheckoutPage() {
 	const router = useRouter();
@@ -31,7 +32,7 @@ export default function CheckoutPage() {
 	const [showAddressModal, setShowAddressModal] = useState(false);
 	const [couponCodeInput, setCouponCodeInput] = useState("");
 	const [coupon, setCoupon] = useState(null);
-	const [loading, setLoading] = useState(false);
+	const { processCheckout, isPaymentLoading } = usePaymentGateway();
 
 	// Redirect to login if user not authenticated
 	useEffect(() => {
@@ -96,7 +97,6 @@ export default function CheckoutPage() {
 			return toast.error("Please select a payment method.");
 		}
 
-		setLoading(true);
 		const discount = coupon ? (coupon.discount / 100) * totalPrice : 0;
 		const total = totalPrice - discount;
 
@@ -105,38 +105,14 @@ export default function CheckoutPage() {
 			quantity: item.quantity,
 		}));
 
-		try {
-			const res = await placeOrderAction({
-				total,
-				addressId: selectedAddress.id,
-				paymentMethod,
-				couponCode: coupon ? coupon.code : "",
-				couponDiscount: discount,
-				cartItems: items,
-			});
-
-			if (res.success) {
-				toast.success(
-					paymentMethod === "COD"
-						? "Order placed successfully!"
-						: "Order placed! Proceeding to payment...",
-				);
-				if (res.redirectUrl) {
-					router.push(res.redirectUrl);
-				} else {
-					router.push("/profile");
-				}
-				// Delay clearing the cart so the redirect doesn't get hijacked by the useEffect
-				setTimeout(() => dispatch(clearCart()), 1000);
-			} else {
-				toast.error(res.error || "Failed to place order.");
-			}
-		} catch (err) {
-			console.error(err);
-			toast.error("An error occurred while placing order.");
-		} finally {
-			setLoading(false);
-		}
+		await processCheckout({
+			total,
+			addressId: selectedAddress.id,
+			paymentMethod,
+			couponCode: coupon ? coupon.code : "",
+			couponDiscount: discount,
+			cartItems: items,
+		});
 	};
 
 	const discount = coupon ? (coupon.discount / 100) * totalPrice : 0;
@@ -435,9 +411,9 @@ export default function CheckoutPage() {
 							{/* Checkout Trigger */}
 							<button
 								onClick={handlePlaceOrder}
-								disabled={loading}
+								disabled={isPaymentLoading}
 								className="w-full bg-indigo-650 hover:bg-indigo-750 text-primary-foreground py-3 rounded-xl font-semibold transition active:scale-97 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer shadow-sm shadow-indigo-100">
-								{loading ? (
+								{isPaymentLoading ? (
 									<div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
 								) : paymentMethod === "COD" ? (
 									"Place Order (COD)"

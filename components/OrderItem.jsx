@@ -8,28 +8,17 @@ import RatingModal from "./RatingModal";
 import { retryPaymentAction } from "@/lib/actions/orders";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { usePaymentGateway } from "@/hooks/usePaymentGateway";
 
 const OrderItem = ({ order }) => {
 	const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || "$";
 	const [ratingModal, setRatingModal] = useState(null);
-	const [loadingPay, setLoadingPay] = useState(false);
-	const router = useRouter();
+	const { processRetryPayment, isPaymentLoading } = usePaymentGateway();
 
 	const { ratings } = useSelector((state) => state.rating);
 
 	const handlePayNow = async () => {
-		setLoadingPay(true);
-		const res = await retryPaymentAction(order.id);
-		if (res.success && res.redirectUrl) {
-			if (res.redirectUrl.startsWith('http')) {
-				window.location.href = res.redirectUrl;
-			} else {
-				router.push(res.redirectUrl);
-			}
-		} else {
-			toast.error(res.error || "Failed to initiate payment");
-			setLoadingPay(false);
-		}
+		await processRetryPayment(order.id);
 	};
 
 	return (
@@ -132,9 +121,9 @@ const OrderItem = ({ order }) => {
 						{order.status === "PENDING_PAYMENT" && (
 							<button
 								onClick={handlePayNow}
-								disabled={loadingPay}
+								disabled={isPaymentLoading}
 								className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold px-3 py-1.5 rounded transition disabled:opacity-50 cursor-pointer">
-								{loadingPay ? "Processing..." : "Pay Now"}
+								{isPaymentLoading ? "Processing..." : "Pay Now"}
 							</button>
 						)}
 					</div>
@@ -168,9 +157,9 @@ const OrderItem = ({ order }) => {
 						{order.status === "PENDING_PAYMENT" && (
 							<button
 								onClick={handlePayNow}
-								disabled={loadingPay}
+								disabled={isPaymentLoading}
 								className="bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-semibold px-3 py-1.5 rounded transition disabled:opacity-50 cursor-pointer">
-								{loadingPay ? "Processing..." : "Pay Now"}
+								{isPaymentLoading ? "Processing..." : "Pay Now"}
 							</button>
 						)}
 					</div>
