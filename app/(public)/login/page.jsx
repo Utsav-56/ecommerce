@@ -1,7 +1,7 @@
 'use client'
 import { Suspense, useState, useTransition } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginAction, getCurrentUserAction } from '@/lib/actions/auth'
 import { getCartAction } from '@/lib/actions/cart'
 import { getAddressesAction } from '@/lib/actions/address'
@@ -10,12 +10,21 @@ import { setCart } from '@/lib/features/cart/cartSlice'
 import { setAddresses } from '@/lib/features/address/addressSlice'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
+import { useEffect } from 'react'
 
 function LoginForm() {
   const router = useRouter()
   const dispatch = useDispatch()
   const searchParams = useSearchParams()
   const redirect = searchParams.get('redirect') || '/'
+  
+  const { user } = useSelector(state => state.auth)
+
+  useEffect(() => {
+    if (user) {
+      router.push(redirect)
+    }
+  }, [user, router, redirect])
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

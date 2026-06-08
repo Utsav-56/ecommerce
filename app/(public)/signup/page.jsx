@@ -1,17 +1,26 @@
 'use client'
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { signupAction, getCurrentUserAction } from '@/lib/actions/auth'
 import { getAddressesAction } from '@/lib/actions/address'
 import { setUser } from '@/lib/features/auth/authSlice'
 import { setAddresses } from '@/lib/features/address/addressSlice'
 import Link from 'next/link'
 import toast from 'react-hot-toast'
+import { useEffect } from 'react'
 
 export default function Signup() {
   const router = useRouter()
   const dispatch = useDispatch()
+
+  const { user } = useSelector(state => state.auth)
+
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [user, router])
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
