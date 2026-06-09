@@ -18,7 +18,10 @@ export async function GET(request) {
     })
 
     // Verify with Khalti Lookup API
-    const khaltiSecret = process.env.KHALTI_SECRET_KEY || 'key 5c6a3e85cf5e4cf1922c2a05f5e4cf19'
+    let khaltiSecret = process.env.KHALTI_SECRET_KEY;
+    if (khaltiSecret && !khaltiSecret.startsWith('Key ')) {
+        khaltiSecret = `Key ${khaltiSecret}`;
+    }
     let payload = { status: status, pidx }
     
     try {

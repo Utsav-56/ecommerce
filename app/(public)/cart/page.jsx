@@ -8,9 +8,22 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Cart() {
+import { useSearchParams, useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
+function CartContent() {
     const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || '$';
+    
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    
+    useEffect(() => {
+        const error = searchParams.get('error');
+        if (error) {
+            toast.error("Payment failed: " + error.replace(/_/g, ' '));
+            router.replace('/cart');
+        }
+    }, [searchParams, router]);
     
     const { cartItems } = useSelector(state => state.cart);
     const products = useSelector(state => state.product.list);
@@ -101,4 +114,14 @@ export default function Cart() {
             <h1 className="text-2xl sm:text-4xl font-semibold">Your cart is empty</h1>
         </div>
     )
+}
+
+import { Suspense } from 'react'
+
+export default function Cart() {
+  return (
+    <Suspense fallback={<div className="min-h-screen p-10 text-center">Loading cart...</div>}>
+      <CartContent />
+    </Suspense>
+  )
 }

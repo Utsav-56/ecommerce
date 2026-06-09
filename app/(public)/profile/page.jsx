@@ -8,8 +8,11 @@ import Image from "next/image"
 import Loading from "@/components/Loading"
 import toast from "react-hot-toast"
 
-export default function ProfilePage() {
+import { useSearchParams } from "next/navigation"
+
+function ProfileContent() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const { user } = useSelector(state => state.auth)
 
   const [purchases, setPurchases] = useState([])
@@ -21,6 +24,14 @@ export default function ProfilePage() {
       router.push('/login?redirect=/profile')
     }
   }, [user, router])
+
+  useEffect(() => {
+    if (searchParams.get('payment') === 'success') {
+      toast.success("Payment successful!")
+      // Remove the query param to avoid repeat toasts on reload
+      router.replace('/profile')
+    }
+  }, [searchParams, router])
 
   const fetchPurchases = async () => {
     try {
@@ -193,5 +204,15 @@ export default function ProfilePage() {
 
       </div>
     </div>
+  )
+}
+
+import { Suspense } from 'react'
+
+export default function ProfilePage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <ProfileContent />
+    </Suspense>
   )
 }
