@@ -2,6 +2,9 @@
 import { XIcon } from "lucide-react"
 import { useState } from "react"
 import { toast } from "react-hot-toast"
+import { useDispatch } from "react-redux"
+import { addAddressAction, getAddressesAction } from "@/lib/actions/address"
+import { setAddresses } from "@/lib/features/address/addressSlice"
 
 const AddressModal = ({ setShowAddressModal }) => {
 
@@ -23,16 +26,41 @@ const AddressModal = ({ setShowAddressModal }) => {
         })
     }
 
+    const dispatch = useDispatch()
+
+    const [isSaving, setIsSaving] = useState(false)
+
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setIsSaving(true)
 
-        setShowAddressModal(false)
+        try {
+            const res = await addAddressAction(address)
+            if (res.success) {
+                toast.success("Address added successfully!")
+                
+                // Refresh address list in Redux
+                const addrRes = await getAddressesAction()
+                if (addrRes.success) {
+                    dispatch(setAddresses(addrRes.list))
+                }
+                
+                setShowAddressModal(false)
+            } else {
+                toast.error(res.error || "Failed to add address.")
+            }
+        } catch (error) {
+            console.error(error)
+            toast.error("An error occurred while adding address.")
+        } finally {
+            setIsSaving(false)
+        }
     }
 
     return (
-        <form onSubmit={e => toast.promise(handleSubmit(e), { loading: 'Adding Address...' })} className="fixed inset-0 z-50 bg-card/60 backdrop-blur h-screen flex items-center justify-center">
-            <div className="flex flex-col gap-5 text-foreground w-full max-w-sm mx-6">
-                <h2 className="text-3xl ">Add New <span className="font-semibold">Address</span></h2>
+        <form onSubmit={handleSubmit} className="fixed inset-0 z-50 bg-card/60 backdrop-blur h-screen flex items-center justify-center">
+            <div className="flex flex-col gap-5 text-foreground w-full max-w-sm mx-6 bg-card border border-border p-6 rounded-xl shadow-2xl relative">
+                <h2 className="text-2xl ">Add New <span className="font-semibold">Address</span></h2>
                 <input name="name" onChange={handleAddressChange} value={address.name} className="p-2 px-4 outline-none border border-border rounded w-full" type="text" placeholder="Enter your name" required />
                 <input name="email" onChange={handleAddressChange} value={address.email} className="p-2 px-4 outline-none border border-border rounded w-full" type="email" placeholder="Email address" required />
                 <input name="street" onChange={handleAddressChange} value={address.street} className="p-2 px-4 outline-none border border-border rounded w-full" type="text" placeholder="Street" required />
@@ -45,9 +73,11 @@ const AddressModal = ({ setShowAddressModal }) => {
                     <input name="country" onChange={handleAddressChange} value={address.country} className="p-2 px-4 outline-none border border-border rounded w-full" type="text" placeholder="Country" required />
                 </div>
                 <input name="phone" onChange={handleAddressChange} value={address.phone} className="p-2 px-4 outline-none border border-border rounded w-full" type="text" placeholder="Phone" required />
-                <button className="bg-primary text-primary-foreground text-sm font-medium py-2.5 rounded-md hover:bg-primary active:scale-95 transition-all">SAVE ADDRESS</button>
+                <button disabled={isSaving} className="bg-primary text-primary-foreground text-sm font-medium py-3 rounded-md hover:bg-indigo-700 active:scale-95 transition-all disabled:opacity-50 mt-2">
+                    {isSaving ? "SAVING..." : "SAVE ADDRESS"}
+                </button>
+                <XIcon size={24} className="absolute top-6 right-6 text-muted-foreground hover:text-foreground cursor-pointer transition" onClick={() => setShowAddressModal(false)} />
             </div>
-            <XIcon size={30} className="absolute top-5 right-5 text-muted-foreground hover:text-foreground cursor-pointer" onClick={() => setShowAddressModal(false)} />
         </form>
     )
 }
