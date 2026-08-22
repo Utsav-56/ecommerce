@@ -1,13 +1,12 @@
 'use client'
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
-export default function ESewaCheckoutPage() {
+function ESewaContent() {
     const searchParams = useSearchParams()
     const [payload, setPayload] = useState(null)
 
     useEffect(() => {
-        // Collect all search params into an object to build the form
         const params = {}
         for (const [key, value] of searchParams.entries()) {
             params[key] = value
@@ -16,9 +15,9 @@ export default function ESewaCheckoutPage() {
     }, [searchParams])
 
     useEffect(() => {
-        // Auto-submit the form if we have the payload
         if (payload && payload.amount && payload.signature) {
-            document.getElementById('esewa-form').submit()
+            const form = document.getElementById('esewa-form')
+            if (form) form.submit()
         }
     }, [payload])
 
@@ -46,4 +45,12 @@ export default function ESewaCheckoutPage() {
             </form>
         </div>
     )
+}
+
+export default function ESewaCheckoutPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center">Loading eSewa checkout...</div>}>
+      <ESewaContent />
+    </Suspense>
+  )
 }

@@ -28,15 +28,17 @@ export const assets = {
     product_img7, product_img8, product_img9, product_img10, product_img11, product_img12,
 }
 
-export const categories = ["Headphones", "Speakers", "Watch", "Earbuds", "Mouse", "Decoration"];
+import { ELECTRONICS_CATEGORIES } from "@/lib/constants/categories";
+
+export const categories = ELECTRONICS_CATEGORIES;
 
 export const dummyRatingsData = [
-    { id: "rat_1", rating: 4.2, review: "I was a bit skeptical at first, but this product turned out to be even better than I imagined. The quality feels premium, it's easy to use, and it delivers exactly what was promised. I've already recommended it to friends and will definitely purchase again in the future.", user: { name: 'Kristin Watson', image: profile_pic1 }, productId: "prod_1", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Electronics', id:'prod_1'} },
-    { id: "rat_2", rating: 5.0, review: "This product is great. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.", user: { name: 'Jenny Wilson', image: profile_pic2 }, productId: "prod_2", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Electronics', id:'prod_1'} },
-    { id: "rat_3", rating: 4.1, review: "This product is amazing. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.", user: { name: 'Bessie Cooper', image: profile_pic3 }, productId: "prod_3", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Electronics', id:'prod_1'} },
-    { id: "rat_4", rating: 5.0, review: "This product is great. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.", user: { name: 'Kristin Watson', image: profile_pic1 }, productId: "prod_4", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Electronics', id:'prod_1'} },
-    { id: "rat_5", rating: 4.3, review: "Overall, I'm very happy with this purchase. It works as described and feels durable. The only reason I didn't give it five stars is because of a small issue (such as setup taking a bit longer than expected, or packaging being slightly damaged). Still, highly recommend it for anyone looking for a reliable option.", user: { name: 'Jenny Wilson', image: profile_pic2 }, productId: "prod_5", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Electronics', id:'prod_1'} },
-    { id: "rat_6", rating: 5.0, review: "This product is great. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.", user: { name: 'Bessie Cooper', image: profile_pic3 }, productId: "prod_6", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Electronics', id:'prod_1'} },
+    { id: "rat_1", rating: 4.2, review: "I was a bit skeptical at first, but this product turned out to be even better than I imagined. The quality feels premium, it's easy to use, and it delivers exactly what was promised. I've already recommended it to friends and will definitely purchase again in the future.", user: { name: 'Kristin Watson', image: profile_pic1 }, productId: "prod_1", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Audio', id:'prod_1'} },
+    { id: "rat_2", rating: 5.0, review: "This product is great. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.", user: { name: 'Jenny Wilson', image: profile_pic2 }, productId: "prod_2", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Audio', id:'prod_1'} },
+    { id: "rat_3", rating: 4.1, review: "This product is amazing. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.", user: { name: 'Bessie Cooper', image: profile_pic3 }, productId: "prod_3", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Audio', id:'prod_1'} },
+    { id: "rat_4", rating: 5.0, review: "This product is great. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.", user: { name: 'Kristin Watson', image: profile_pic1 }, productId: "prod_4", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Audio', id:'prod_1'} },
+    { id: "rat_5", rating: 4.3, review: "Overall, I'm very happy with this purchase. It works as described and feels durable. The only reason I didn't give it five stars is because of a small issue (such as setup taking a bit longer than expected, or packaging being slightly damaged). Still, highly recommend it for anyone looking for a reliable option.", user: { name: 'Jenny Wilson', image: profile_pic2 }, productId: "prod_5", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Audio', id:'prod_1'} },
+    { id: "rat_6", rating: 5.0, review: "This product is great. I love it!  You made it so simple. My new site is so much faster and easier to work with than my old site.", user: { name: 'Bessie Cooper', image: profile_pic3 }, productId: "prod_6", createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)', product: { name: 'Bluetooth Speakers', category:'Audio', id:'prod_1'} },
 ]
 
 export const dummyStoreData = {
@@ -69,7 +71,7 @@ export const productDummyData = [
         mrp: 40,
         price: 29,
         images: [product_img1, product_img2, product_img3, product_img4],
-        category: "Decoration",
+        category: "Accessories",
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
@@ -87,7 +89,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Speakers",
+        category: "Audio",
         rating: dummyRatingsData,
         createdAt: 'Sat Jul 28 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 28 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -102,7 +104,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Watch",
+        category: "Wearables",
         rating: dummyRatingsData,
         createdAt: 'Sat Jul 27 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 27 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -117,7 +119,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Headphones",
+        category: "Audio",
         rating: dummyRatingsData,
         createdAt: 'Sat Jul 26 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 26 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -132,7 +134,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Watch",
+        category: "Wearables",
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 25 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 25 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -147,7 +149,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Camera",
+        category: "Cameras",
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 25 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 25 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -162,7 +164,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Pen",
+        category: "Accessories",
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 24 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 24 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -177,7 +179,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Theater",
+        category: "Audio",
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 23 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 23 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -192,7 +194,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Earbuds",
+        category: "Audio",
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 22 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 22 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -207,7 +209,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Watch",
+        category: "Wearables",
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 21 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 21 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -222,7 +224,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Mouse",
+        category: "Accessories",
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 20 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 20 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -237,7 +239,7 @@ export const productDummyData = [
         storeId: "seller_1",
         inStock: true,
         store: dummyStoreData,
-        category: "Cleaner",
+        category: "Accessories",
         rating: [...dummyRatingsData,...dummyRatingsData],
         createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)',
         updatedAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)',
@@ -264,14 +266,6 @@ export const addressDummyData = {
     createdAt: 'Sat Jul 19 2025 14:51:25 GMT+0530 (India Standard Time)',
 }
 
-export const couponDummyData = [
-    { code: "NEW20", description: "20% Off for New Users", discount: 20, forNewUser: true, forMember: false, isPublic: false, expiresAt: "2026-12-31T00:00:00.000Z", createdAt: "2025-08-22T08:35:31.183Z" },
-    { code: "NEW10", description: "10% Off for New Users", discount: 10, forNewUser: true, forMember: false, isPublic: false, expiresAt: "2026-12-31T00:00:00.000Z", createdAt: "2025-08-22T08:35:50.653Z" },
-    { code: "OFF20", description: "20% Off for All Users", discount: 20, forNewUser: false, forMember: false, isPublic: false, expiresAt: "2026-12-31T00:00:00.000Z", createdAt: "2025-08-22T08:42:00.811Z" },
-    { code: "OFF10", description: "10% Off for All Users", discount: 10, forNewUser: false, forMember: false, isPublic: false, expiresAt: "2026-12-31T00:00:00.000Z", createdAt: "2025-08-22T08:42:21.279Z" },
-    { code: "PLUS10", description: "20% Off for Members", discount: 10, forNewUser: false, forMember: true, isPublic: false, expiresAt: "2027-03-06T00:00:00.000Z", createdAt: "2025-08-22T11:38:20.194Z" }
-]
-
 export const dummyUserData = {
     id: "user_31dQbH27HVtovbs13X2cmqefddM",
     name: "GreatStack",
@@ -292,8 +286,6 @@ export const orderDummyData = [
         paymentMethod: "COD",
         createdAt: "2025-08-22T09:15:03.929Z",
         updatedAt: "2025-08-22T09:15:50.723Z",
-        isCouponUsed: true,
-        coupon: dummyRatingsData[2],
         orderItems: [
             { orderId: "cmemm75h5001jtat89016h1p3", productId: "cmemlydnx0017tat8h3rg92hz", quantity: 1, price: 89, product: productDummyData[0], },
             { orderId: "cmemm75h5001jtat89016h1p3", productId: "cmemlxgnk0015tat84qm8si5v", quantity: 1, price: 149, product: productDummyData[1], }
@@ -312,8 +304,6 @@ export const orderDummyData = [
         paymentMethod: "COD",
         createdAt: "2025-08-22T09:14:35.923Z",
         updatedAt: "2025-08-22T09:15:52.535Z",
-        isCouponUsed: true,
-        coupon: couponDummyData[0],
         orderItems: [
             { orderId: "cmemm6jv7001htat8vmm3gxaf", productId: "cmemm1f3y001dtat8liccisar", quantity: 1, price: 229, product: productDummyData[2], },
             { orderId: "cmemm6jv7001htat8vmm3gxaf", productId: "cmemm0nh2001btat8glfvhry1", quantity: 1, price: 99, product: productDummyData[3], },

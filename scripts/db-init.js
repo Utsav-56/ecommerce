@@ -26,7 +26,7 @@ async function run() {
     console.log('Checking database schema status...');
     
     // 1. Run prisma db push to ensure database file and tables exist
-    execSync('pnpx prisma db push', { stdio: 'inherit' });
+    execSync('bunx prisma db push', { stdio: 'inherit' });
     
     // 2. Query to see if any user records exist
     const rawUrl = process.env.DATABASE_URL || 'file:prisma/dev.db';
@@ -47,7 +47,7 @@ async function run() {
     
     if (userCount === 0) {
       console.log('No user records found. Seeding initial accounts and coupons...');
-      execSync('pnpx prisma db seed', { stdio: 'inherit' });
+      execSync('bunx prisma db seed', { stdio: 'inherit' });
     } else {
       console.log('Database already has data. Skipping seed.');
     }

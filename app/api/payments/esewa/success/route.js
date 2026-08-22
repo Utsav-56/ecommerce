@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import crypto from 'crypto'
-import prisma from '@/lib/prisma'
-import { completeOrderPaymentAction } from '@/lib/actions/orders'
+import { config } from '@/lib/config'
+import { recordPaymentResult } from '@/lib/domain/payments/resultHandler'
 
 export async function GET(request) {
   try {
@@ -9,52 +9,56 @@ export async function GET(request) {
     const data = searchParams.get('data')
 
     if (!data) {
-      return NextResponse.redirect(new URL('/cart?error=esewa_invalid_payload', request.url))
+      return NextResponse.redirect(new URL('/orders?error=esewa_missing_payload', request.url))
     }
 
-    const decodedData = Buffer.from(data, 'base64').toString('utf-8')
-    const payload = JSON.parse(decodedData)
+    let payload
+    try {
+      const decodedData = Buffer.from(data, 'base64').toString('utf-8')
+      payload = JSON.parse(decodedData)
+    } catch (e) {
+      return NextResponse.redirect(new URL('/orders?error=esewa_corrupted_payload', request.url))
+    }
 
-    // Verify signature
-    const secret = process.env.ESEWA_SECRET_KEY || '8g8t8ruptcZ2U5gD'
+    if (!payload.signed_field_names || !payload.signature || !payload.transaction_uuid) {
+      return NextResponse.redirect(new URL('/orders?error=esewa_malformed_payload', request.url))
+    }
+
+    // Verify HMAC SHA256 Signature
+    const secret = config.esewa.secretKey
     const fields = payload.signed_field_names.split(',')
     const message = fields.map(field => `${field}=${payload[field]}`).join(',')
-    
     const expectedSignature = crypto.createHmac('sha256', secret).update(message).digest('base64')
 
     if (expectedSignature !== payload.signature) {
-      return NextResponse.redirect(new URL('/cart?error=esewa_invalid_signature', request.url))
-    }
-
-    const orderId = payload.transaction_uuid
-
-    const payment = await prisma.payment.findFirst({
-      where: { orderId }
-    })
-
-    // Save webhook event
-    await prisma.webhookEvent.create({
-      data: {
+      console.error('eSewa signature mismatch!', { expectedSignature, received: payload.signature })
+      await recordPaymentResult({
         gateway: 'ESEWA',
-        eventData: JSON.stringify(payload),
-        status: payload.status,
-        paymentId: payment ? payment.id : null
-      }
-    })
+        orderId: payload.transaction_uuid,
+        status: 'FAILED',
+        payload: { ...payload, failureReason: 'signature_mismatch' }
+      }).catch(() => {})
 
-    if (payload.status !== 'COMPLETE') {
-      return NextResponse.redirect(new URL('/cart?error=esewa_payment_failed', request.url))
+      return NextResponse.redirect(new URL('/orders?error=esewa_invalid_signature', request.url))
     }
 
-    // Complete order
-    const res = await completeOrderPaymentAction({ orderId, paymentMethod: 'ESEWA' })
-    if (res.success) {
+    const isSuccess = payload.status === 'COMPLETE' || payload.status === 'SUCCESS'
+
+    const result = await recordPaymentResult({
+      gateway: 'ESEWA',
+      orderId: payload.transaction_uuid,
+      status: isSuccess ? 'SUCCESS' : 'FAILED',
+      payload,
+      transactionId: payload.transaction_code || undefined
+    })
+
+    if (result.isPaid) {
       return NextResponse.redirect(new URL('/profile?payment=success', request.url))
     } else {
-      return NextResponse.redirect(new URL(`/cart?error=${res.error}`, request.url))
+      return NextResponse.redirect(new URL('/orders?error=esewa_payment_unsuccessful', request.url))
     }
   } catch (error) {
     console.error('eSewa Webhook Error:', error)
-    return NextResponse.redirect(new URL('/cart?error=esewa_processing_failed', request.url))
+    return NextResponse.redirect(new URL('/orders?error=esewa_verification_failed', request.url))
   }
 }

@@ -16,42 +16,72 @@ export default function Initializer() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    let isMounted = true
+
     async function initApp() {
-      // 1. Load active session
-      const authRes = await getCurrentUserAction()
-      if (authRes?.success && authRes.user) {
-        dispatch(setUser(authRes.user))
-        
-        // Load user-specific database data
-        const cartRes = await getCartAction()
-        if (cartRes?.success) {
-          dispatch(setCart({ cartItems: cartRes.cartItems, total: cartRes.total }))
+      // 1. Parallel fetch for public data (products & ratings)
+      const [prodRes, ratingRes] = await Promise.all([
+        getProductsAction().catch(err => {
+          console.error('Failed to load products:', err)
+          return { success: false, products: [] }
+        }),
+        getRatingsAction().catch(err => {
+          console.error('Failed to load ratings:', err)
+          return { success: false, ratings: [] }
+        })
+      ])
+
+      if (isMounted) {
+        if (prodRes?.success) {
+          dispatch(setProduct(prodRes.products))
         }
-        
-        const addrRes = await getAddressesAction()
-        if (addrRes?.success) {
-          dispatch(setAddresses(addrRes.list))
+        if (ratingRes?.success) {
+          dispatch(setRatings(ratingRes.ratings))
         }
-      } else {
-        dispatch(clearUser())
-        dispatch(clearCart())
-        dispatch(setAddresses([]))
       }
 
-      // 2. Load public database products
-      const prodRes = await getProductsAction()
-      if (prodRes?.success) {
-        dispatch(setProduct(prodRes.products))
-      }
+      // 2. Active user session and user-specific resources
+      try {
+        const authRes = await getCurrentUserAction()
+        if (isMounted) {
+          if (authRes?.success && authRes.user) {
+            dispatch(setUser(authRes.user))
 
-      // 3. Load public ratings/reviews
-      const ratingRes = await getRatingsAction()
-      if (ratingRes?.success) {
-        dispatch(setRatings(ratingRes.ratings))
+            // Fetch cart and addresses in parallel for authenticated user
+            const [cartRes, addrRes] = await Promise.all([
+              getCartAction().catch(() => ({ success: false })),
+              getAddressesAction().catch(() => ({ success: false }))
+            ])
+
+            if (isMounted) {
+              if (cartRes?.success) {
+                dispatch(setCart({ cartItems: cartRes.cartItems, total: cartRes.total }))
+              }
+              if (addrRes?.success) {
+                dispatch(setAddresses(addrRes.list))
+              }
+            }
+          } else {
+            dispatch(clearUser())
+            dispatch(clearCart())
+            dispatch(setAddresses([]))
+          }
+        }
+      } catch (err) {
+        console.error('Auth initialization error:', err)
+        if (isMounted) {
+          dispatch(clearUser())
+          dispatch(clearCart())
+          dispatch(setAddresses([]))
+        }
       }
     }
 
     initApp()
+
+    return () => {
+      isMounted = false
+    }
   }, [dispatch])
 
   return null

@@ -43,14 +43,14 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
 	console.log("Seeding database...");
 
-	// Clean existing tables (except migration logs)
+	// Clean existing tables
+	await prisma.purchase.deleteMany({});
 	await prisma.payment.deleteMany({});
 	await prisma.orderItem.deleteMany({});
 	await prisma.order.deleteMany({});
 	await prisma.cartItem.deleteMany({});
 	await prisma.product.deleteMany({});
 	await prisma.address.deleteMany({});
-	await prisma.coupon.deleteMany({});
 	await prisma.user.deleteMany({});
 
 	// Passwords
@@ -106,34 +106,6 @@ async function main() {
 			phone: "987-654-3210",
 		},
 	});
-
-	// Seed default coupons
-	const coupons = [
-		{
-			code: "NEW20",
-			description: "20% Off for New Users",
-			discount: 20,
-			expiresAt: new Date("2028-12-31"),
-		},
-		{
-			code: "OFF10",
-			description: "10% Off for All Orders",
-			discount: 10,
-			expiresAt: new Date("2028-12-31"),
-		},
-		{
-			code: "SUPER50",
-			description: "50% Mega Discount",
-			discount: 50,
-			expiresAt: new Date("2028-12-31"),
-		},
-	];
-
-	for (const coupon of coupons) {
-		await prisma.coupon.create({
-			data: coupon,
-		});
-	}
 
 	console.log("Seeding completed successfully.");
 }
